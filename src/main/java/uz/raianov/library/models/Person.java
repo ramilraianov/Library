@@ -1,6 +1,7 @@
 package uz.raianov.library.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -20,6 +21,7 @@ public class Person {
     }
 
     public Person(int id, String fullName, int yearOfBirth) {
+
         this.id = id;
         this.fullName = fullName;
         this.yearOfBirth = yearOfBirth;

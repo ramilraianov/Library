@@ -63,11 +63,11 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") @Valid Book book,BindingResult bindingResult, @PathVariable("id") int id) {
-        if (bindingResult.hasErrors()){
+    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") int id) {
+
+        if (bindingResult.hasErrors()) {
             return "books/edit";
         }
-
         bookDAO.update(id, book);
         return "redirect:/books";
     }

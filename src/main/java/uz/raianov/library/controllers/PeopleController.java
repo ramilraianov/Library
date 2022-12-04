@@ -21,28 +21,21 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model) {
-
         model.addAttribute("people", personDAO.index());
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books", personDAO.getBooksByPersonId(id));
         return "people/show";
     }
 
     @GetMapping("/new")
     public String newPerson(Model model) {
-
         model.addAttribute("person", new Person());
         return "people/new";
-    }
-
-    @ModelAttribute("headerMessage")
-    public String populateHeaderMessage() {
-        return "Welcome to our website!";
     }
 
     @PostMapping
@@ -57,7 +50,6 @@ public class PeopleController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
@@ -74,7 +66,6 @@ public class PeopleController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-
         personDAO.delete(id);
         return "redirect:/people";
     }

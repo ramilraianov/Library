@@ -29,7 +29,6 @@ public class MvcDispatcherServletInitializer extends AbstractAnnotationConfigDis
 
     @Override
     public void onStartup(ServletContext aServletContext) throws ServletException {
-
         super.onStartup(aServletContext);
         registerCharacterEncodingFilter(aServletContext);
         registerHiddenFieldFilter(aServletContext);

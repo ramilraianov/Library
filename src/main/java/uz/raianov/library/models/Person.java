@@ -1,19 +1,18 @@
 package uz.raianov.library.models;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
 
 public class Person {
 
     private int id;
 
     @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
     private String fullName;
 
-    @Min(value = 0, message = "Enter a valid number")
+    @Min(value = 1900, message = "Enter a valid number")
     private int yearOfBirth;
 
     public Person() {

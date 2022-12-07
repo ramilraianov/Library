@@ -1,42 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
     <title th:text="${book.getTitle()}">Title</title>
 </head>
 <body>
 
-<p th:text="${book.getTitle()}"></p>
-<p th:text="${'Year: ' + book.getYear()}"></p>
-<p th:text="${'Author: ' + book.getAuthor()}"></p>
+<div class="container">
 
-<dif th:if="${owner}">
-    <span>Книга сейчас у: </span> <span th:text="${owner.getFullName()}">Person name</span>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Library</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
-        <input type="submit" value="Освободить книгу">
-    </form>
-</dif>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/people">People</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books">Books</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-<div th:if="${people}">
-    <span>Эта книга свободна. Кому назначить ее?</span>
-    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
-        <label for="person">Выберите человека</label>
-        <select th:object="${person}" th:field="*{id}" id="person">
-            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getFullName()}"></option>
-        </select>
-        <input type="submit" value="Назначить книгу">
-    </form>
+    <div class="row">
+        <div class="col">
+            <p th:text="${book.getTitle()}"></p>
+            <p th:text="${'Year: ' + book.getYear()}"></p>
+            <p th:text="${'Author: ' + book.getAuthor()}"></p>
 
+            <dif th:if="${owner}">
+                <span>Книга сейчас у: </span> <span th:text="${owner.getFullName()}">Person name</span>
+
+                <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+                    <input type="submit" value="Освободить книгу">
+                </form>
+            </dif>
+
+            <div th:if="${people}">
+                <span>Эта книга свободна. Кому назначить ее?</span>
+                <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
+                    <label for="person">Выберите человека</label>
+                    <select th:object="${person}" th:field="*{id}" id="person">
+                        <option th:each="person : ${people}" th:value="${person.getId()}"
+                                th:text="${person.getFullName()}"></option>
+                    </select>
+                    <input type="submit" value="Назначить книгу">
+                </form>
+
+            </div>
+        </div>
+        <div class="col">
+            <a th:href="@{/books/{id}/edit(id=${book.getId()})}" th:text="Edit" class="btn btn-primary mb-4"></a>
+            <br/>
+            <!--Удаление-->
+            <button type="button" class="btn btn-primary" title="Delete" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Delete book</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Удалить книгу <span th:text="${book.getTitle()}"></span>? действие необратимо
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
 </div>
-
-<a th:href="@{/books/{id}/edit(id=${book.getId()})}" th:text="Edit"></a>
-<br/>
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
-    <input type="submit" value="Delete">
-</form>
-
-<a href="/books">Back</a>
 </body>
 </html>

@@ -34,7 +34,7 @@
         </div>
     </nav>
 
-    <div class="row">
+    <div class="row row mb-3">
         <div class="col">
             <h2>Books</h2>
         </div>
@@ -70,35 +70,5 @@
         </div>
     </div>
 </div>
-
-
-<!--Old code-->
-<!--<div th:each="book: ${bookList}">-->
-<!--    <a th:href="@{/books/{id}(id=${book.getId()})}"-->
-<!--       th:text="${book.getTitle() + ', ' + book.getYear() + ', ' + book.getAuthor()}">book</a>-->
-
-
-<!-- Modal -->
-<!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="staticBackdropLabel">Delete book</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                Удалить книгу <span th:text="${book.getTitle()}"></span>? действие необратимо-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">-->
-<!--                    <button type="button" class="btn btn-danger">Delete</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</div>-->
-
 </body>
 </html>
